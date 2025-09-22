@@ -50,6 +50,8 @@ netflix/
 └── dbt_project.yml            # Project configuration
 ```
 
+<img width="1918" height="985" alt="image" src="https://github.com/user-attachments/assets/c77e90cf-00db-495c-984d-d706be7c1bb0" />
+
 ---
 
 ## ⚙️ Snowflake Setup
