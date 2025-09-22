@@ -174,6 +174,38 @@ dbt test           # Run data quality tests
 
 ## 🛠️ Additional dbt Features
 
+
+### Snapshots
+
+Snapshots in dbt allow you to **track changes in your data over time**, creating a historical record for auditing or slowly changing dimensions.
+
+**Example Snapshot**: `snap_tags`
+
+```sql
+{% snapshot snap_tags %}
+
+{{
+    config(
+        target_schema='snapshots',
+        unique_key=['user_id','movie_id','tag'],
+        strategy='timestamp',
+        updated_at='tag_timestamp',
+        invalidate_hard_deletes=True
+    )
+}}
+
+SELECT
+{{ dbt_utils.generate_surrogate_key(['user_id','movie_id','tag']) }} AS row_key,
+    user_id,
+    movie_id,
+    tag,
+    CAST(tag_timestamp AS TIMESTAMP_NTZ) AS tag_timestamp
+FROM {{ ref('src_tags') }}
+LIMIT 100 
+
+{% endsnapshot %}
+```
+
 ### Tests
 
 This project includes **custom and built-in dbt tests** to ensure data quality and consistency.
