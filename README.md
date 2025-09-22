@@ -174,6 +174,22 @@ dbt test           # Run data quality tests
 
 ## 🛠️ Additional dbt Features
 
+### Tests
+
+This project includes **custom and built-in dbt tests** to ensure data quality and consistency.
+
+**Custom Test Example**: `tests/high_relevance_score.sql`
+
+```sql
+SELECT
+    movie_id,
+    tag_id,
+    relevance_score
+FROM {{ ref('fct_genome_scores') }}
+WHERE relevance_score > 3
+
+```
+
 ### Seeds
 **Seeds** are CSV files that contain static data loaded directly into your data warehouse. In this project, they're stored in the `seeds/` directory.
 
